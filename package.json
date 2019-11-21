@@ -1,0 +1,19 @@
+{
+  "name": "domains-sorter",
+  "version": "1.0.0",
+  "description": "emails domains sortert",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JubasNTC/domains-sorter.git"
+  },
+  "author": "JubasNTC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JubasNTC/domains-sorter/issues"
+  },
+  "homepage": "https://github.com/JubasNTC/domains-sorter#readme"
+}
