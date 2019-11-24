@@ -14,7 +14,6 @@ router.post('/sort-domains', (req, res) => {
   form.parse(req, (error, fields, files) => {
     // eslint-disable-next-line handle-callback-err
     fs.readFile(files.file[0].path, (_error, data) => {
-      res.send({ lines: data.toString().split('\n') });
       const lines = data.toString().split('\n');
       const sorter = new Sorter(lines);
       sorter.sortDomains();
