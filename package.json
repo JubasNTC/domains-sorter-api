@@ -2,10 +2,11 @@
   "name": "domains-sorter",
   "version": "1.0.0",
   "description": "emails domains sortert",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./app.js",
+    "dev": "nodemon ./app.js",
+    "start": "node app.js",
     "eslint": "eslint .",
     "precommit": "lint-staged"
   },
@@ -38,12 +39,13 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^3.1.0",
     "lint-staged": "^9.4.3",
     "nodemon": "^2.0.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
     "prettier": "^1.19.1"
   },
-  "lint-staged": {
+    "lint-staged": {
     "*.{js}": [
       "eslint",
       "prettier --write",
