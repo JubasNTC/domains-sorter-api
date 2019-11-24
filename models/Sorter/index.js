@@ -10,18 +10,19 @@ class Sorter {
     }
   }
 
-  sortDomains(_domains) {
-    this.domains.forEach(line => {
-      if (this.isEmailPass(line)) {
-        const email = line.split(SEPARTOR_KEY)[0];
+  sortDomains() {
+    const length = this.domains.length;
+    for (let i = 0; i < length; i++) {
+      if (this.isEmailPass(this.domains[i])) {
+        const email = this.domains[i].split(SEPARTOR_KEY)[0];
         const domain = this.getDomain(email);
         if (this.isExistDomain(domain)) {
-          this.sortResult[domain].push(line);
+          this.sortResult[domain].push(this.domains[i]);
         } else {
-          this.sortResult[domain] = [line];
+          this.sortResult[domain] = [this.domains[i]];
         }
       }
-    });
+    }
     return this.sortResult;
   }
 

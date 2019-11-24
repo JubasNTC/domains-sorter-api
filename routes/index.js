@@ -5,7 +5,7 @@ const fs = require('fs');
 const Sorter = require('../models/Sorter');
 
 router.get('/', (req, res) => {
-  res.send({ server: 'work' });
+  res.send({ status: 200 });
 });
 
 router.post('/sort-domains', (req, res) => {
