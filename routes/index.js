@@ -13,7 +13,7 @@ router.post('/sort-domains', (req, res) => {
   form.parse(req, (error, fields, files) => {
     // eslint-disable-next-line handle-callback-err
     fs.readFile(files.file[0].path, (_error, data) => {
-      console.log(data.toString().split('\n'));
+      res.send({ lines: data.toString().split('\n') });
     });
   });
   res.send({ work: 'good' });
