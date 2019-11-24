@@ -16,7 +16,6 @@ router.post('/sort-domains', (req, res) => {
       res.send({ lines: data.toString().split('\n') });
     });
   });
-  res.send({ work: 'good' });
 });
 
 module.exports = router;
