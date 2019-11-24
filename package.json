@@ -2,11 +2,11 @@
   "name": "domains-sorter",
   "version": "1.0.0",
   "description": "emails domains sortert",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./app.js",
-    "start": "NODE_ENV=production node ./bin/www",
+    "start": "node app.js",
     "eslint": "eslint ."
   },
   "repository": {
