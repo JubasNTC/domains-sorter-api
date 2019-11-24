@@ -6,14 +6,14 @@ class Sorter {
     this.domains = [];
     this.sortResult = {};
     if (_.isArray(domainsList)) {
-      this.tests = domainsList;
+      this.domains = domainsList;
     }
   }
 
   sortDomains(_domains) {
     this.domains.forEach(line => {
       if (this.isEmailPass(line)) {
-        const [email] = line.split(SEPARTOR_KEY);
+        const email = line.split(SEPARTOR_KEY)[0];
         const domain = this.getDomain(email);
         if (this.isExistDomain(domain)) {
           this.sortResult[domain].push(line);
@@ -22,15 +22,11 @@ class Sorter {
         }
       }
     });
-  }
-
-  getSortResult() {
     return this.sortResult;
   }
 
   getDomain(_email) {
-    const [, domain] = _email.split(SYMBOL_AT);
-    return domain;
+    return _email.split(SYMBOL_AT)[1];
   }
 
   isEmailPass(_line) {

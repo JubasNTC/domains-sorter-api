@@ -16,8 +16,7 @@ router.post('/sort-domains', (req, res) => {
     fs.readFile(files.file[0].path, (_error, data) => {
       const lines = data.toString().split('\n');
       const sorter = new Sorter(lines);
-      sorter.sortDomains();
-      res.send({ result: sorter.getSortResult() });
+      res.send({ result: sorter.sortDomains() });
     });
   });
 });
