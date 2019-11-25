@@ -23,11 +23,18 @@ class Sorter {
         }
       }
     }
+  }
+
+  getSortResult() {
     return this.sortResult;
   }
 
   getDomain(_email) {
     return _email.split(SYMBOL_AT)[1];
+  }
+
+  setDomains(_domains) {
+    this.domains = _domains;
   }
 
   isEmailPass(_line) {

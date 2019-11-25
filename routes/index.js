@@ -12,12 +12,16 @@ router.post('/sort-domains', (req, res) => {
   const form = new multiparty.Form();
   // eslint-disable-next-line handle-callback-err
   form.parse(req, (error, fields, files) => {
-    // eslint-disable-next-line handle-callback-err
-    fs.readFile(files.file[0].path, (_error, data) => {
-      const lines = data.toString().split('\n');
-      const sorter = new Sorter(lines);
-      res.send({ result: sorter.sortDomains() });
-    });
+    const readStream = fs.createReadStream(files.file[0].path, 'utf8');
+    const sorter = new Sorter();
+    readStream
+      .on('data', chunk => {
+        sorter.setDomains(chunk.split('\n'));
+        sorter.sortDomains();
+      })
+      .on('end', function() {
+        res.send({ result: sorter.getSortResult() });
+      });
   });
 });
 
