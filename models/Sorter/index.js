@@ -1,28 +1,8 @@
-const _ = require('lodash');
 const { EMAIL_PASS_REGEXP, SEPARTOR_KEY, SYMBOL_AT } = require('./constants');
 
 class Sorter {
-  constructor(domainsList) {
-    this.domains = [];
+  constructor() {
     this.sortResult = {};
-    if (_.isArray(domainsList)) {
-      this.domains = domainsList;
-    }
-  }
-
-  sortDomains() {
-    const length = this.domains.length;
-    for (let i = 0; i < length; i++) {
-      if (this.isEmailPass(this.domains[i])) {
-        const email = this.domains[i].split(SEPARTOR_KEY)[0];
-        const domain = this.getDomain(email);
-        if (this.isExistDomain(domain)) {
-          this.sortResult[domain].push(this.domains[i]);
-        } else {
-          this.sortResult[domain] = [this.domains[i]];
-        }
-      }
-    }
   }
 
   getSortResult() {
@@ -33,8 +13,16 @@ class Sorter {
     return _email.split(SYMBOL_AT)[1];
   }
 
-  setDomains(_domains) {
-    this.domains = _domains;
+  setLine(_line) {
+    if (this.isEmailPass(_line)) {
+      const email = _line.split(SEPARTOR_KEY)[0];
+      const domain = this.getDomain(email);
+      if (this.isExistDomain(domain)) {
+        this.sortResult[domain].push(_line);
+      } else {
+        this.sortResult[domain] = [_line];
+      }
+    }
   }
 
   isEmailPass(_line) {
