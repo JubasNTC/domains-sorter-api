@@ -1,4 +1,4 @@
-const { EMAIL_PASS_REGEXP, SEPARTOR_KEY, SYMBOL_AT } = require('./constants');
+const { EMAIL_PASS_REGEX, SEPARTOR_KEY, SYMBOL_AT } = require('./constants');
 
 class Sorter {
   constructor() {
@@ -13,7 +13,7 @@ class Sorter {
     return _email.split(SYMBOL_AT)[1];
   }
 
-  setLine(_line) {
+  addLine(_line) {
     if (this.isEmailPass(_line)) {
       const email = _line.split(SEPARTOR_KEY)[0];
       const domain = this.getDomain(email);
@@ -26,7 +26,7 @@ class Sorter {
   }
 
   isEmailPass(_line) {
-    return _line.match(EMAIL_PASS_REGEXP);
+    return _line.match(EMAIL_PASS_REGEX);
   }
 
   isExistDomain(domain) {
