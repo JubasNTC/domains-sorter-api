@@ -17,7 +17,7 @@ router.post('/sort-domains', (req, res) => {
   form.parse(req, (error, fields, files) => {
     if (error) {
       res.status(400);
-      res.send({ error: error });
+      res.send({ error: new Error(error) });
     }
 
     const sorter = new Sorter();
@@ -33,10 +33,7 @@ router.post('/sort-domains', (req, res) => {
           })
           .on('error', err => {
             res.status(500);
-            res.send({ error: err });
-          })
-          .on('close', () => {
-            fileStream.destroy();
+            res.send({ err: new Error(err) });
           })
           .on('end', () => {
             res.status(200);
