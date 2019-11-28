@@ -1,4 +1,4 @@
-const { EMAIL_PASS_REGEXP, SEPARTOR_KEY, SYMBOL_AT } = require('./constants');
+const { EMAIL_PASS_REGEX, SEPARTOR, SYMBOL_AT } = require('./constants');
 
 class Sorter {
   constructor() {
@@ -9,29 +9,39 @@ class Sorter {
     return this.sortResult;
   }
 
-  getDomain(_email) {
-    return _email.split(SYMBOL_AT)[1];
-  }
-
-  setLine(_line) {
+  addLine(_line) {
     if (this.isEmailPass(_line)) {
-      const email = _line.split(SEPARTOR_KEY)[0];
-      const domain = this.getDomain(email);
-      if (this.isExistDomain(domain)) {
-        this.sortResult[domain].push(_line);
+      const { domain, normalizedLine } = this.normalizeLine(_line);
+
+      if (
+        this.checkExistDomain(domain) &&
+        !this.sortResult[domain].includes(normalizedLine)
+      ) {
+        this.sortResult[domain].push(normalizedLine);
       } else {
-        this.sortResult[domain] = [_line];
+        this.sortResult[domain] = [normalizedLine];
       }
     }
   }
 
-  isEmailPass(_line) {
-    return _line.match(EMAIL_PASS_REGEXP);
+  normalizeLine(_line) {
+    const [email, password] = _line.trim().split(SEPARTOR);
+    const lowerEmail = email.toLowerCase();
+    const [, domain] = lowerEmail.split(SYMBOL_AT);
+    const normalizedLine = `${lowerEmail}:${password}`;
+
+    return {
+      domain,
+      normalizedLine,
+    };
   }
 
-  isExistDomain(domain) {
-    // eslint-disable-next-line no-prototype-builtins
-    return this.sortResult.hasOwnProperty(domain);
+  checkExistDomain(_domain) {
+    return _domain in this.sortResult;
+  }
+
+  isEmailPass(_line) {
+    return _line.trim().match(EMAIL_PASS_REGEX);
   }
 }
 
