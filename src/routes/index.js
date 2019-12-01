@@ -1,10 +1,11 @@
-const express = require('express');
-const multiparty = require('multiparty');
-const es = require('event-stream');
-const fs = require('fs');
+import express from 'express';
+import multiparty from 'multiparty';
+import es from 'event-stream';
+import fs from 'fs';
+
+import { Sorter } from '../models/Sorter';
 
 const router = express.Router();
-const Sorter = require('../models/Sorter');
 
 router.get('/', (req, res) => {
   res.status(200);
