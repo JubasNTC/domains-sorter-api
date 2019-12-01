@@ -1,11 +1,12 @@
-import express from 'express';
+import { Router } from 'express';
 import multiparty from 'multiparty';
 import es from 'event-stream';
 import fs from 'fs';
-
+import _ from 'lodash';
 import { Sorter } from '../models/Sorter';
+import { MAX_SIZE_FILE, TEXT_PLAN } from './constants';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', (req, res) => {
   res.status(200);
@@ -15,10 +16,36 @@ router.get('/', (req, res) => {
 router.post('/sort-domains', (req, res) => {
   const form = new multiparty.Form();
 
+  form.on('error', error => {
+    return res.status(400).json({
+      message: error,
+    });
+  });
+
+  // eslint-disable-next-line consistent-return
   form.parse(req, (error, fields, files) => {
     if (error) {
-      res.status(400);
-      res.send({ error: new Error(error) });
+      return res.status(400).json({
+        message: error,
+      });
+    }
+
+    if (_.isEmpty(files)) {
+      return res.status(400).json({
+        message: 'error',
+      });
+    }
+
+    if (files.file[0].size > MAX_SIZE_FILE) {
+      return res.status(400).json({
+        message: 'Big size file',
+      });
+    }
+
+    if (files.file[0].headers['content-type'] !== TEXT_PLAN) {
+      return res.status(400).json({
+        message: 'No support content type',
+      });
     }
 
     const sorter = new Sorter();
@@ -33,15 +60,17 @@ router.post('/sort-domains', (req, res) => {
             fileStream.resume();
           })
           .on('error', err => {
-            res.status(500);
-            res.send({ err: new Error(err) });
+            return res.status(500).json({
+              message: err,
+            });
           })
           .on('end', () => {
-            res.status(200);
-            res.send({ result: sorter.getSortResult() });
+            return res.status(200).json({
+              result: sorter.getSortResult(),
+            });
           })
       );
   });
 });
 
-module.exports = router;
+export { router };
