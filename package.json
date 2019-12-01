@@ -2,11 +2,11 @@
   "name": "domains-sorter",
   "version": "1.0.0",
   "description": "emails domains sortert",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
     "test": "mocha --require @babel/register 'test/**/*.test.js'",
     "start": "babel-node ./src/app.js",
-    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "build": "babel src --out-dir dist --source-maps inline",
     "dev": "nodemon --exec babel-node ./src/app.js",
     "babel-node": "babel-node",
     "eslint": "eslint .",
