@@ -26,7 +26,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "event-stream": "^4.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "form-data": "^3.0.0",
     "fs": "0.0.1-security",
     "lodash": "^4.17.15",
